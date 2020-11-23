@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined, SettingOutlined } from '@ant-design/icons';
+import { FileDoneOutlined, LaptopOutlined, SettingOutlined, MailOutlined, HomeOutlined, BankOutlined, 
+         TeamOutlined, NotificationOutlined, ReadOutlined, FileSearchOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -11,35 +12,27 @@ export default function Template(props) {
 
     return (
         <Layout style={{ minHeight: "100%"}}>
-            <Header className="header">
-                <div className="logo" style={{ float: "left", width: "126px", height: "31px", margin: "16px 24px 16px 0" }} />
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                    <Menu.Item key="1" icon={<SettingOutlined />} onClick={() => history.push('/')}>Seletivos</Menu.Item>
-                    <Menu.Item key="2" icon={<SettingOutlined />} onClick={() => history.push('/gerenciamento')}>Gerenciamento</Menu.Item>
-                    <Menu.Item key="3" icon={<SettingOutlined />} onClick={() => history.push('/configuracao')}>Configurações</Menu.Item>
-                </Menu>
+            <Header className="header" style={{ backgroundColor: "#1a1a23" }}>
+                <div style={{ width: "100%", height:"100%", display:"flex", justifyContent:"space-between" }}>
+                    <p style={{ color: "white", fontSize: "22px" }}>Seletivos</p>
+                    <p style={{ color: "white", fontSize: "18px" }}><MailOutlined /></p>
+                </div>
             </Header>
             <Layout>
-                <Sider width={200} className="site-layout-background">
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        style={{ height: '100%', borderRight: 0 }}
-                    >
-                        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                            <Menu.Item key="1">option1</Menu.Item>
-                            <Menu.Item key="2">option2</Menu.Item>
-                            <Menu.Item key="3">option3</Menu.Item>
-                            <Menu.Item key="4">option4</Menu.Item>
+                <Sider width={260} className="site-layout-background">
+                    <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
+                        <SubMenu key="sub1" icon={<HomeOutlined />} title="Página Inicial">
+                            <Menu.Item key="1" icon={<FileDoneOutlined />}>Seletivos Abertos</Menu.Item>
+                            <Menu.Item key="2" icon={<NotificationOutlined />}>Enviar Notificação</Menu.Item>
+                            <Menu.Item key="3" icon={<TeamOutlined />}>Convocações</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                            <Menu.Item key="5">option5</Menu.Item>
-                            <Menu.Item key="6">option6</Menu.Item>
-                            <Menu.Item key="7">option7</Menu.Item>
-                            <Menu.Item key="8">option8</Menu.Item>
+                        <SubMenu key="sub2" icon={<LaptopOutlined />} title="Gerenciamento">
+                            <Menu.Item key="4" icon={<ReadOutlined />}>Cursos</Menu.Item>
+                            <Menu.Item key="5" icon={<FileSearchOutlined />}>Verificar Usuários</Menu.Item>
+                            <Menu.Item key="6" icon={<UsergroupAddOutlined />}>Cadastro de Alunos</Menu.Item>
+                            <Menu.Item key="7" icon={<BankOutlined />}>Cadastro de Empresas</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+                        <SubMenu key="sub3" icon={<SettingOutlined />} title="Configurações">
                             <Menu.Item key="9">option9</Menu.Item>
                             <Menu.Item key="10">option10</Menu.Item>
                             <Menu.Item key="11">option11</Menu.Item>
