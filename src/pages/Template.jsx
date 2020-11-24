@@ -22,9 +22,9 @@ export default function Template(props) {
                 <Sider width={260} className="site-layout-background">
                     <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
                         <SubMenu key="sub1" icon={<HomeOutlined />} title="Página Inicial">
-                            <Menu.Item key="1" icon={<FileDoneOutlined />}>Seletivos Abertos</Menu.Item>
-                            <Menu.Item key="2" icon={<NotificationOutlined />}>Enviar Notificação</Menu.Item>
-                            <Menu.Item key="3" icon={<TeamOutlined />}>Convocações</Menu.Item>
+                            <Menu.Item key="1" icon={<FileDoneOutlined />} onClick={() => history.push('/')}>Seletivos Abertos</Menu.Item>
+                            <Menu.Item key="2" icon={<NotificationOutlined />} onClick={() => history.push('/gerenciamento')}>Enviar Notificação</Menu.Item>
+                            <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => history.push('/configuracao')}>Convocações</Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" icon={<LaptopOutlined />} title="Gerenciamento">
                             <Menu.Item key="4" icon={<ReadOutlined />}>Cursos</Menu.Item>
@@ -40,8 +40,8 @@ export default function Template(props) {
                         </SubMenu>
                     </Menu>
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px' }}>
-                    <Content style={{ marginTop: "16px", backgroundColor:"white"  }}>
+                <Layout style={{ padding: '24px'}}>
+                    <Content>
                         <div className="container-fluid" style={{ padding: '24px' }}>
                             {props.children}
                         </div>
