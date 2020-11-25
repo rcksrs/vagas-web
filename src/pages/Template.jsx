@@ -27,7 +27,7 @@ export default function Template(props) {
                             <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => history.push('/configuracao')}>Convocações</Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub2" icon={<LaptopOutlined />} title="Gerenciamento">
-                            <Menu.Item key="4" icon={<ReadOutlined />}>Cursos</Menu.Item>
+                            <Menu.Item key="4" icon={<ReadOutlined />} onClick={() => history.push('/curso')}>Cursos</Menu.Item>
                             <Menu.Item key="5" icon={<FileSearchOutlined />}>Verificar Usuários</Menu.Item>
                             <Menu.Item key="6" icon={<UsergroupAddOutlined />}>Cadastro de Alunos</Menu.Item>
                             <Menu.Item key="7" icon={<BankOutlined />}>Cadastro de Empresas</Menu.Item>

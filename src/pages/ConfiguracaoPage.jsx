@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageHeader, Button, Descriptions, Table } from 'antd';
+import { PageHeader, Button, Table } from 'antd';
 
 export default function ConfiguracaoPage() {
 
