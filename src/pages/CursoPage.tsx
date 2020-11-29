@@ -27,8 +27,6 @@ export default function CursoPage() {
     const service = new CursoService();
     const [cursos, setCursos] = useState<Curso[]>([]);
 
-    const [option, setOption] = useState([]);
-
     const [form] = Form.useForm<Curso>();
 
     function obterPaginaCursos() {

@@ -1,38 +1,47 @@
 import Funcionario from "models/geral/Funcionario";
+import api from "utils/api";
 import IPage from "utils/IPage";
 import IPageable from "utils/IPageable";
 
 export default class FuncionarioService {
 
     async obterTodos(pageable: IPageable): Promise<IPage<Funcionario>> {
-		throw new Error("Método não implementado");
+		const response = await api.get<IPage<Funcionario>>("funcionario", {params: pageable});
+		return response.data;
 	}
 	
 	async obterPorId(id: number): Promise<Funcionario> {
-		throw new Error("Método não implementado");
+		const response = await api.get<Funcionario>("funcionario/" + id);
+		return response.data;
 	}
 	
 	async obterPorNome(nome: number): Promise<Funcionario[]> {
-		throw new Error("Método não implementado");
+		const response = await api.get<Funcionario[]>("funcionario/nome/" + nome);
+		return response.data;
 	}
 	
 	async obterPorMatricula(matricula: string): Promise<Funcionario> {
-		throw new Error("Método não implementado");
+		const response = await api.get<Funcionario>("funcionario/matricula/" + matricula);
+		return response.data;
 	}
 	
 	async obterPorEmpresa(empresaId: number): Promise<Funcionario[]> {
-		throw new Error("Método não implementado");
+		const response = await api.get<Funcionario[]>("funcionario/empresa/" + empresaId);
+		return response.data;
 	}
 	
 	async salvar(funcionario: Funcionario): Promise<Funcionario> {
-		throw new Error("Método não implementado");
+		const response = await api.post<Funcionario>("funcionario", funcionario);
+		return response.data;
 	}
 	
 	async editar(funcionario: Funcionario): Promise<Funcionario> {
-		throw new Error("Método não implementado");
+		const response = await api.put<Funcionario>("funcionario", funcionario);
+		return response.data;
 	}
 	
 	async remover(funcionario: Funcionario): Promise<void> {
-		throw new Error("Método não implementado");
+		await api.delete("funcionario", {data: funcionario});
+		return;
 	}
 }
