@@ -5,13 +5,9 @@ import api from 'utils/api';
 
 export default class CursoService {
 
-    async obterTodos(pageable?: IPageable): Promise<IPage<Curso[]>> {
-		const response = await api.get<IPage<Curso[]>>("curso");
-		if(response.status === 200) {
-			console.log(response.data.content);
-			return response.data;
-		}
-		throw new Error("Erro");
+    async obterTodos(pageable?: IPageable): Promise<IPage<Curso>> {
+		const response = await api.get<IPage<Curso>>("curso");
+		return response.data;
 	}
 	
 	async obterPorId(id: number): Promise<Curso> {

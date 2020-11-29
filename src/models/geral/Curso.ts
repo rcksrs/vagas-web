@@ -18,20 +18,23 @@ enum Modalidade {
 }
 
 export const cursoValidation = {
-	"email" : [
+	nome : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'email', message: 'Informe um email válido'},
 	],
-	"senha" : [
+	semestres : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ min: 5, message: 'Insira ao menos 5 caracteres' },
-		{ max: 20, message: 'Insira no máximo 20 caracteres' },
+		{ type: 'integer' as const, min: 0, message: 'A quantidade de semestres deve ser maior que 0'},
 	],
-	"data" : [
+	chTotal : [
+		{ type: 'integer' as const, min: 0, message: 'A carga horária deve ser maior que 0'},
+	],
+	modalidade : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'date', message: 'Informe uma data válida'},
 	],
-	"opcao" : [
+	tipo : [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+	],
+	empresa : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
 	],
 };

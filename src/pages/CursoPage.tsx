@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { PageHeader, Button, Table, Modal, Form, Input, Space } from 'antd';
+import { PageHeader, Button, Table, Modal, Form, Input, Space, InputNumber, Select } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import CursoService from 'services/CursoService';
-import Curso from 'models/geral/Curso';
+import Curso, { cursoValidation } from 'models/geral/Curso';
 
 export default function CursoPage() {
 
@@ -27,7 +27,9 @@ export default function CursoPage() {
     const service = new CursoService();
     const [cursos, setCursos] = useState<Curso[]>([]);
 
-    const [form] = Form.useForm();
+    const [option, setOption] = useState([]);
+
+    const [form] = Form.useForm<Curso>();
 
     function obterPaginaCursos() {
         console.log('Chamado!!!')
@@ -40,19 +42,21 @@ export default function CursoPage() {
     useEffect(obterPaginaCursos, []);
 
     const handleOk = async () => {
-        // form.validateFields();
-        form.submit();
-        setModalConfirmLoading(true);
+        form.setFieldsValue(cursos[10])
+        form.validateFields();
+        // validation()
+        form.submit()
+        // setModalConfirmLoading(true);
 
-        setTimeout(() => {
-            setModalVisible(false);
-            setModalConfirmLoading(false);
-        }, 2000);
+        // setTimeout(() => {
+        //     setModalVisible(false);
+        //     setModalConfirmLoading(false);
+        // }, 2000);
     };
 
     function onFinish(data: Curso) {
         console.log(data);
-        form.resetFields();
+        // form.resetFields();
     }
 
     return (
@@ -77,37 +81,43 @@ export default function CursoPage() {
                 <Form form={form} onFinish={onFinish} layout="vertical">
                     <div className="row">
                         <div className="col-12">
-                            <Form.Item name="nome" label="Nome" >
+                            <Form.Item name="nome" label="Nome" rules={cursoValidation.nome}>
                                 <Input placeholder="Nome do curso" size="large" />
                             </Form.Item>
                         </div>
 
                         <div className="col-12">
-                            <Form.Item name="empresa" label="Empresa/Instituição" >
-                                <Input placeholder="Empresa ou instituição de ensino" size="large" />
+                            <Form.Item label="Empresa" name={["empresa", "id"]} rules={cursoValidation.empresa}>
+                                <Select size="large" style={{width: '100%'}} placeholder="Empresa ou instituição de ensino">
+                                    {cursos.map(curso => 
+                                        <Select.Option key={curso.id} value={curso.id}>
+                                            {curso.nome}
+                                        </Select.Option>
+                                    )}
+                                </Select>
                             </Form.Item>
                         </div>
 
                         <div className="col-6">
-                            <Form.Item name="chTotal" label="Carga Horária" >
-                                <Input placeholder="Carga horária total" size="large" />
+                            <Form.Item name="chTotal" label="Carga Horária" rules={cursoValidation.chTotal}>
+                                <InputNumber placeholder="Carga horária total" size="large" style={{width: '100%'}}/>
                             </Form.Item>
                         </div>
 
                         <div className="col-6">
-                            <Form.Item name="semestres" label="Semestres" >
-                                <Input placeholder="Quantidade de semestres" size="large" />
+                            <Form.Item name="semestres" label="Semestres" rules={cursoValidation.semestres}>
+                                <InputNumber placeholder="Quantidade de semestres" size="large" style={{width: '100%'}}/>
                             </Form.Item>
                         </div>
 
                         <div className="col-6">
-                            <Form.Item name="modalidade" label="Modalidade" >
+                            <Form.Item name="modalidade" label="Modalidade" rules={cursoValidation.modalidade}>
                                 <Input size="large" />
                             </Form.Item>
                         </div>
 
                         <div className="col-6">
-                            <Form.Item name="tipo" label="Tipo de Curso" >
+                            <Form.Item name="tipo" label="Tipo de Curso" rules={cursoValidation.tipo}>
                                 <Input size="large" />
                             </Form.Item>
                         </div>
