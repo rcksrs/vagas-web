@@ -31,12 +31,11 @@ export default class EmpresaService {
 	}
 	
 	async salvar(empresa: Empresa): Promise<Empresa> {
+		if(empresa.id){
+			const response = await api.put<Empresa>("empresa", empresa);
+			return response.data;
+		}
 		const response = await api.post<Empresa>("empresa", empresa);
-		return response.data;
-	}
-	
-	async editar(empresa: Empresa): Promise<Empresa> {
-		const response = await api.put<Empresa>("empresa", empresa);
 		return response.data;
 	}
 	

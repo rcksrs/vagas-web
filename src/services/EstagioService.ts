@@ -26,12 +26,11 @@ export default class EstagioService {
 	}
 	
 	async salvar(estagio: VinculoEstagio): Promise<VinculoEstagio> {
+		if(estagio.id) {
+			const response = await api.put<VinculoEstagio>("estagio", estagio);
+			return response.data;
+		}
 		const response = await api.post<VinculoEstagio>("estagio", estagio);
-		return response.data;
-	}
-	
-	async editar(estagio: VinculoEstagio): Promise<VinculoEstagio> {
-		const response = await api.put<VinculoEstagio>("estagio", estagio);
 		return response.data;
 	}
 	

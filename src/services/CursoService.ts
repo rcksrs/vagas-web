@@ -32,7 +32,6 @@ export default class CursoService {
 	}
 	
 	async salvar(curso: Curso): Promise<Curso> {
-		console.log(curso.id);
 		if(curso.id) {
 			const response = await api.put<Curso>("curso", curso)
 			return response.data;

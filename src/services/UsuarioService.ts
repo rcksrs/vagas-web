@@ -31,12 +31,11 @@ export default class UsuarioService {
 	}
 	
 	async salvar(usuario: Usuario): Promise<Usuario> {
+		if(usuario.id) {
+			const response = await api.put<Usuario>("usuario", usuario);
+			return response.data;
+		}
 		const response = await api.post<Usuario>("usuario", usuario);
-		return response.data;
-	}
-	
-	async editar(usuario: Usuario): Promise<Usuario> {
-		const response = await api.put<Usuario>("usuario", usuario);
 		return response.data;
 	}
 	

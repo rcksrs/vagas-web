@@ -31,12 +31,11 @@ export default class AlunoService {
 	}
 	
 	async salvar(aluno: Aluno): Promise<Aluno> {
+		if(aluno.id) {
+			const response = await api.put<Aluno>("aluno", aluno);
+			return response.data;
+		}
 		const response = await api.post<Aluno>("aluno", aluno);
-		return response.data;
-	}
-	
-	async editar(aluno: Aluno): Promise<Aluno> {
-		const response = await api.put<Aluno>("aluno", aluno);
 		return response.data;
 	}
 	

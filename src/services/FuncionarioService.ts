@@ -31,12 +31,11 @@ export default class FuncionarioService {
 	}
 	
 	async salvar(funcionario: Funcionario): Promise<Funcionario> {
+		if(funcionario.id) {
+			const response = await api.put<Funcionario>("funcionario", funcionario);
+			return response.data;
+		}
 		const response = await api.post<Funcionario>("funcionario", funcionario);
-		return response.data;
-	}
-	
-	async editar(funcionario: Funcionario): Promise<Funcionario> {
-		const response = await api.put<Funcionario>("funcionario", funcionario);
 		return response.data;
 	}
 	
