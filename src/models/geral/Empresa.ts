@@ -1,4 +1,5 @@
 import Endereco from "./Endereco";
+import cnpjValidator from "utils/cnpjValidator";
 
 export default interface Empresa {
 	id: number;
@@ -13,20 +14,21 @@ export default interface Empresa {
 }
 
 export const empresaValidation = {
-	"email" : [
+	"nome": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'email', message: 'Informe um email válido'},
 	],
-	"senha" : [
+	"cnpj": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ min: 5, message: 'Insira ao menos 5 caracteres' },
-		{ max: 20, message: 'Insira no máximo 20 caracteres' },
+		{ validator: cnpjValidator}
 	],
-	"data" : [
+	"representante": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'date', message: 'Informe uma data válida'},
 	],
-	"opcao" : [
+	"email": [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+		{ type: 'email' as const, message: 'Informe um email válido'},
+	],
+	"telefone": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
 	],
 };

@@ -2,20 +2,17 @@ import React from "react"
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Template from 'pages/Template'
-import SeletivoPage from 'pages/SeletivoPage'
-import GerenciamentoPage from 'pages/GerenciamentoPage'
-import ConfiguracaoPage from 'pages/ConfiguracaoPage'
 import CursoPage from 'pages/CursoPage'
+import EmpresaPage from 'pages/EmpresaPage'
 
 export default function App() {
   return (
     <BrowserRouter>
       <Template>
         <Switch>
-          <Route path="/" exact component={SeletivoPage} />
-          <Route path="/gerenciamento" exact component={GerenciamentoPage} />
-          <Route path="/configuracao" exact component={ConfiguracaoPage} />
+          <Route path="/" exact component={CursoPage} />
           <Route path="/curso" exact component={CursoPage} />
+          <Route path="/empresa" exact component={EmpresaPage} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </Template>

@@ -32,12 +32,12 @@ export default class CursoService {
 	}
 	
 	async salvar(curso: Curso): Promise<Curso> {
+		console.log(curso.id);
+		if(curso.id) {
+			const response = await api.put<Curso>("curso", curso)
+			return response.data;
+		}
 		const response = await api.post<Curso>("curso", curso);
-		return response.data;
-	}
-	
-	async editar(curso: Curso): Promise<Curso> {
-		const response = await api.put<Curso>("curso", curso)
 		return response.data;
 	}
 	

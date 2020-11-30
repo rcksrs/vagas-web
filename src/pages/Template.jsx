@@ -22,21 +22,23 @@ export default function Template(props) {
                 <Sider width={260} className="site-layout-background">
                     <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
                         <SubMenu key="sub1" icon={<HomeOutlined />} title="Página Inicial">
-                            <Menu.Item key="1" icon={<FileDoneOutlined />} onClick={() => history.push('/')}>Seletivos Abertos</Menu.Item>
-                            <Menu.Item key="2" icon={<NotificationOutlined />} onClick={() => history.push('/gerenciamento')}>Enviar Notificação</Menu.Item>
-                            <Menu.Item key="3" icon={<TeamOutlined />} onClick={() => history.push('/configuracao')}>Convocações</Menu.Item>
+                            <Menu.Item key="1" icon={<FileDoneOutlined />}>Seletivos Abertos</Menu.Item>
+                            <Menu.Item key="2" icon={<NotificationOutlined />}>Enviar Notificação</Menu.Item>
+                            <Menu.Item key="3" icon={<TeamOutlined />}>Convocações</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub2" icon={<LaptopOutlined />} title="Gerenciamento">
+                        <SubMenu key="sub2" icon={<LaptopOutlined />} title="Estágios">
+                            <Menu.Item key="11" icon={<ReadOutlined />}>Vínculos Ativos</Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<LaptopOutlined />} title="Gerenciamento">
                             <Menu.Item key="4" icon={<ReadOutlined />} onClick={() => history.push('/curso')}>Cursos</Menu.Item>
-                            <Menu.Item key="5" icon={<FileSearchOutlined />}>Verificar Usuários</Menu.Item>
-                            <Menu.Item key="6" icon={<UsergroupAddOutlined />}>Cadastro de Alunos</Menu.Item>
-                            <Menu.Item key="7" icon={<BankOutlined />}>Cadastro de Empresas</Menu.Item>
+                            <Menu.Item key="5" icon={<FileSearchOutlined />}>Verificar Usuário</Menu.Item>
+                            <Menu.Item key="6" icon={<UsergroupAddOutlined />}>Cadastro de Aluno</Menu.Item>
+                            <Menu.Item key="7" icon={<UsergroupAddOutlined />}>Cadastro de Funcionário</Menu.Item>
+                            <Menu.Item key="8" icon={<BankOutlined />} onClick={() => history.push('/empresa')}>Cadastro de Empresa</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub3" icon={<SettingOutlined />} title="Configurações">
-                            <Menu.Item key="9">option9</Menu.Item>
-                            <Menu.Item key="10">option10</Menu.Item>
-                            <Menu.Item key="11">option11</Menu.Item>
-                            <Menu.Item key="12">option12</Menu.Item>
+                        <SubMenu key="sub4" icon={<SettingOutlined />} title="Configurações">
+                            <Menu.Item key="9">Alterar Perfil</Menu.Item>
+                            <Menu.Item key="10">Controle de Acesso</Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>

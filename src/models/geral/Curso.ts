@@ -11,10 +11,10 @@ export default interface Curso {
 	empresa: Empresa;
 }
 
-enum Modalidade {
+export enum Modalidade {
     PRESENCIAL = 'PRESENCIAL',
 	SEMIPRESENCIAL = 'SEMIPRESENCIAL',
-	EAD = 'EAD'
+	EAD = 'EAD',
 }
 
 export const cursoValidation = {

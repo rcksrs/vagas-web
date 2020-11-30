@@ -21,12 +21,12 @@ export default class EmpresaService {
 	}
 	
 	async obterPorCnpj(cnpj: string): Promise<Empresa> {
-		const response = await api.get<Empresa>("empresa/" + cnpj);
+		const response = await api.get<Empresa>("empresa/cnpj/" + cnpj);
 		return response.data;
 	}
 	
 	async obterPorNome(nome: string): Promise<Empresa[]> {
-		const response = await api.get<Empresa[]>("empresa/" + nome);
+		const response = await api.get<Empresa[]>("empresa/nome/" + nome);
 		return response.data;
 	}
 	
