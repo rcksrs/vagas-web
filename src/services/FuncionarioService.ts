@@ -9,13 +9,18 @@ export default class FuncionarioService {
 		const response = await api.get<IPage<Funcionario>>("funcionario", {params: pageable});
 		return response.data;
 	}
+
+	async listarTodos(): Promise<Funcionario[]> {
+		const response = await api.get<Funcionario[]>("funcionario/listar");
+		return response.data;
+	}
 	
 	async obterPorId(id: number): Promise<Funcionario> {
 		const response = await api.get<Funcionario>("funcionario/" + id);
 		return response.data;
 	}
 	
-	async obterPorNome(nome: number): Promise<Funcionario[]> {
+	async obterPorNome(nome: string): Promise<Funcionario[]> {
 		const response = await api.get<Funcionario[]>("funcionario/nome/" + nome);
 		return response.data;
 	}

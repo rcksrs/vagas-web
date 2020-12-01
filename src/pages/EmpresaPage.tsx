@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PageHeader, Button, Table, Modal, Form, Input, Space, InputNumber, notification, Popconfirm, Divider, Tabs, message } from 'antd';
+import { PageHeader, Button, Table, Modal, Form, Input, Space, InputNumber, notification, Popconfirm, Tabs, message } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import EmpresaService from 'services/EmpresaService';
 import Empresa, { empresaValidation } from 'models/geral/Empresa';
@@ -22,13 +22,14 @@ export default function EmpresaPage() {
         { title: 'CNPJ', dataIndex: 'cnpj' },
         { title: 'Site', dataIndex: 'site' },
         { title: 'Contato', dataIndex: 'telefone' },
-        { title: 'Editar/Excluir', render: (text: any, data: Empresa) => (
-              <Space size="middle">
-                <EditOutlined onClick={() => botaoEditarEmpresa(data)}/>
-                <Popconfirm title="Tem certeza que deseja remover este item？" okText="Sim" cancelText="Não" onConfirm={() => botaoRemoverEmpresa(data)}>
-                    <DeleteOutlined />
-                </Popconfirm>
-              </Space>
+        {
+            title: 'Editar/Excluir', render: (text: any, data: Empresa) => (
+                <Space size="middle">
+                    <EditOutlined onClick={() => botaoEditarEmpresa(data)} />
+                    <Popconfirm title="Tem certeza que deseja remover este item？" okText="Sim" cancelText="Não" onConfirm={() => botaoRemoverEmpresa(data)}>
+                        <DeleteOutlined />
+                    </Popconfirm>
+                </Space>
             )
         },
     ];
@@ -38,10 +39,10 @@ export default function EmpresaPage() {
     }
 
     function buscarEmpresas(nome: string) {
-        if(nome) empresaService.obterPorNome(nome).then(res => setEmpresas(res));
+        if (nome) empresaService.obterPorNome(nome).then(res => setEmpresas(res));
         else empresaService.listarTodos().then(res => setEmpresas(res));
     }
-    
+
     function botaoEditarEmpresa(empresa: Empresa) {
         form.setFieldsValue(empresa);
         setModalVisible(true);
@@ -79,7 +80,7 @@ export default function EmpresaPage() {
 
     async function botaoBuscarCEP(cep: string) {
         const endereco = await buscarCEP(cep);
-        if(endereco) form.setFieldsValue({endereco});
+        if (endereco) form.setFieldsValue({ endereco });
     }
 
     return (
@@ -101,107 +102,106 @@ export default function EmpresaPage() {
             <Modal title="Cadastrar Nova Empresa" okText="Salvar" cancelText="Cancelar" width={1000}
                 visible={modalVisible} onOk={() => botaoSalvarModal()} onCancel={onCancel} >
                 <Form form={form} onFinish={onFinish} layout="vertical">
-                    <Form.Item name="id" style={{display: 'none'}}><InputNumber type="hidden"/></Form.Item>
-                        <Tabs defaultActiveKey="1">
-                            <Tabs.TabPane tab="Informações Gerais" key="1">
-                                <div className="row">
-                                    <div className="col-12">
-                                        <Form.Item name="nome" label="Nome" rules={empresaValidation.nome}>
-                                            <Input placeholder="Nome da empresa" size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="cnpj" label="CNPJ" rules={empresaValidation.cnpj}>
-                                            <Input placeholder="CNPJ da empresa" size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="natureza" label="Natureza">
-                                            <Input placeholder="Natureza da empresa" size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="email" label="Email" rules={empresaValidation.email}>
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="representante" label="Representante" rules={empresaValidation.representante}>
-                                            <Input placeholder="Nome do representante da empresa" size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="telefone" label="telefone" rules={empresaValidation.telefone}>
-                                            <Input placeholder="Telefone de contato" size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name="site" label="Site">
-                                            <Input placeholder="Site da empresa" size="large" />
-                                        </Form.Item>
-                                    </div>
-                                </div>                              
-                            </Tabs.TabPane>
-                            <Tabs.TabPane tab="Localização" key="2">
-                                <div className="row">
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "cep"]} label="CEP" rules={enderecoValidation.cep}>
-                                            <Search placeholder="Buscar endereço pelo CEP" size="large" onSearch={(cep) => botaoBuscarCEP(cep)} />
-                                            {/* <Input placeholder="CEP da empresa" size="large" /> */}
-                                        </Form.Item>
-                                    </div>
-                                    <div className="offset-6" />
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "pais"]} label="País">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "estado"]} label="Estado">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "cidade"]} label="Cidade">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "bairro"]} label="Bairro">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "numero"]} label="Número">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-4">
-                                        <Form.Item name={["endereco", "complemento"]} label="Complemento">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className="col-12">
-                                        <Form.Item name={["endereco", "referencia"]} label="Referência">
-                                            <Input size="large" />
-                                        </Form.Item>
-                                    </div>
+                    <Form.Item name="id" style={{ display: 'none' }}><InputNumber type="hidden" /></Form.Item>
+                    <Tabs defaultActiveKey="1">
+                        <Tabs.TabPane tab="Informações Gerais" key="1">
+                            <div className="row">
+                                <div className="col-12">
+                                    <Form.Item name="nome" label="Nome" rules={empresaValidation.nome}>
+                                        <Input placeholder="Nome da empresa" size="large" />
+                                    </Form.Item>
                                 </div>
-                            </Tabs.TabPane>
-                        </Tabs>
+
+                                <div className="col-4">
+                                    <Form.Item name="cnpj" label="CNPJ" rules={empresaValidation.cnpj}>
+                                        <Input placeholder="CNPJ da empresa" size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name="natureza" label="Natureza">
+                                        <Input placeholder="Natureza da empresa" size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name="email" label="Email" rules={empresaValidation.email}>
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name="representante" label="Representante" rules={empresaValidation.representante}>
+                                        <Input placeholder="Nome do representante da empresa" size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name="telefone" label="telefone" rules={empresaValidation.telefone}>
+                                        <Input placeholder="Telefone de contato" size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name="site" label="Site">
+                                        <Input placeholder="Site da empresa" size="large" />
+                                    </Form.Item>
+                                </div>
+                            </div>
+                        </Tabs.TabPane>
+                        <Tabs.TabPane tab="Localização" key="2">
+                            <div className="row">
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "cep"]} label="CEP" rules={enderecoValidation.cep}>
+                                        <Search placeholder="Buscar endereço pelo CEP" size="large" onSearch={(cep) => botaoBuscarCEP(cep)} />
+                                    </Form.Item>
+                                </div>
+                                <div className="offset-6" />
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "pais"]} label="País">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "estado"]} label="Estado">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "cidade"]} label="Cidade">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "bairro"]} label="Bairro">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "numero"]} label="Número">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-4">
+                                    <Form.Item name={["endereco", "complemento"]} label="Complemento">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+
+                                <div className="col-12">
+                                    <Form.Item name={["endereco", "referencia"]} label="Referência">
+                                        <Input size="large" />
+                                    </Form.Item>
+                                </div>
+                            </div>
+                        </Tabs.TabPane>
+                    </Tabs>
                 </Form>
             </Modal>
         </>

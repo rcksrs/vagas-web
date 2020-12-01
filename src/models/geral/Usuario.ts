@@ -10,3 +10,16 @@ export default interface Usuario {
 	senha?: string;
 	perfil?: Perfil;
 }
+
+export const usuarioValidation = {
+	"cpf": [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+	],
+	"email": [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+		{ type: 'email' as const, message: 'Informe um email válido'},
+	],
+	"senha": [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+	],
+};

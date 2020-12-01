@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PageHeader, Button, Table, Modal, Form, Input, Space, InputNumber, Select, notification, message, Popconfirm } from 'antd';
+import { PageHeader, Button, Table, Modal, Form, Input, Space, InputNumber, Select, notification, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import CursoService from 'services/CursoService';
 import Curso, { cursoValidation, Modalidade } from 'models/geral/Curso';

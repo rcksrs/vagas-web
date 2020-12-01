@@ -33,7 +33,7 @@ export default function Template(props) {
                             <Menu.Item key="4" icon={<ReadOutlined />} onClick={() => history.push('/curso')}>Cursos</Menu.Item>
                             <Menu.Item key="5" icon={<FileSearchOutlined />}>Verificar Usuário</Menu.Item>
                             <Menu.Item key="6" icon={<UsergroupAddOutlined />}>Cadastro de Aluno</Menu.Item>
-                            <Menu.Item key="7" icon={<UsergroupAddOutlined />}>Cadastro de Funcionário</Menu.Item>
+                            <Menu.Item key="7" icon={<UsergroupAddOutlined />} onClick={() => history.push('/funcionario')}>Cadastro de Funcionário</Menu.Item>
                             <Menu.Item key="8" icon={<BankOutlined />} onClick={() => history.push('/empresa')}>Cadastro de Empresa</Menu.Item>
                         </SubMenu>
                         <SubMenu key="sub4" icon={<SettingOutlined />} title="Configurações">
