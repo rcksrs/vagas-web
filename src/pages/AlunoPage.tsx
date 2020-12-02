@@ -27,7 +27,7 @@ export default function AlunoPage() {
 
     const colunasTabela = [
         { title: 'Nome', dataIndex: 'nome' },
-        { title: 'Matricula', dataIndex: 'matricula' },
+        { title: 'Matrícula', dataIndex: 'matricula' },
         { title: 'Curso', dataIndex: ['curso', 'nome'] },
         {
             title: 'Editar/Excluir', render: (text: any, data: Aluno) => (

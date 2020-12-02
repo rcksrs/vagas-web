@@ -27,7 +27,7 @@ export default function FuncionarioPage() {
 
     const colunasTabela = [
         { title: 'Nome', dataIndex: 'nome' },
-        { title: 'Matricula', dataIndex: 'matricula' },
+        { title: 'Matrícula', dataIndex: 'matricula' },
         { title: 'Cargo', dataIndex: 'cargo' },
         {
             title: 'Editar/Excluir', render: (text: any, data: Funcionario) => (

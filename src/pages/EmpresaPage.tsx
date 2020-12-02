@@ -21,7 +21,7 @@ export default function EmpresaPage() {
         { title: 'Nome', dataIndex: 'nome' },
         { title: 'CNPJ', dataIndex: 'cnpj' },
         { title: 'Site', dataIndex: 'site' },
-        { title: 'Contato', dataIndex: 'telefone' },
+        { title: 'Telefone', dataIndex: 'telefone' },
         {
             title: 'Editar/Excluir', render: (text: any, data: Empresa) => (
                 <Space size="middle">
