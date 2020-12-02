@@ -15,20 +15,21 @@ export default interface Aluno {
 }
 
 export const alunoValidation = {
-	"email" : [
+	"nome": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'email', message: 'Informe um email válido'},
 	],
-	"senha" : [
+	"matricula": [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ min: 5, message: 'Insira ao menos 5 caracteres' },
-		{ max: 20, message: 'Insira no máximo 20 caracteres' },
 	],
-	"data" : [
+	"dataNascimento" : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'date', message: 'Informe uma data válida'},
+		{ type: 'date' as const, message: 'Informe uma data válida'},
 	],
-	"opcao" : [
+	"dataIngresso" : [
+		{ required: true, message: 'Este campo deve ser preenchido' },
+		{ type: 'date' as const, message: 'Informe uma data válida'},
+	],
+	"curso" : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
 	],
 };

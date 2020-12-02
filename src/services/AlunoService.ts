@@ -9,6 +9,11 @@ export default class AlunoService {
 		const response = await api.get<IPage<Aluno>>("aluno", {params: pageable});
 		return response.data;
 	}
+
+	async listarTodos(): Promise<Aluno[]> {
+		const response = await api.get<Aluno[]>("aluno/listar");
+		return response.data;
+	}
 	
 	async obterPorId(id: number): Promise<Aluno> {
 		const response = await api.get<Aluno>("aluno/" + id);
