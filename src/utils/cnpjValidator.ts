@@ -2,7 +2,7 @@
 import { RuleObject } from "antd/lib/form";
 import { StoreValue } from "antd/lib/form/interface";
 
-export default function cnpjValidation(rule: RuleObject, value: StoreValue, callback: (error?: string) => void) {
+export default function cnpjValidator(rule: RuleObject, value: StoreValue, callback: (error?: string) => void) {
     if (value === undefined) return callback("Este campo deve ser preenchido");
     var strCNPJ = value.replace('.', '').replace('.', '').replace('/', '').replace('-', '');
 

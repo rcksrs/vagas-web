@@ -23,10 +23,10 @@ export const cursoValidation = {
 	],
 	semestres : [
 		{ required: true, message: 'Este campo deve ser preenchido' },
-		{ type: 'integer' as const, min: 0, message: 'A quantidade de semestres deve ser maior que 0'},
+		{ type: 'integer' as const, min: 1, message: 'A quantidade de semestres deve ser maior que 0'},
 	],
 	chTotal : [
-		{ type: 'integer' as const, min: 0, message: 'A carga horária deve ser maior que 0'},
+		{ type: 'integer' as const, min: 1, message: 'A carga horária deve ser maior que 0'},
 	],
 	modalidade : [
 		{ required: true, message: 'Este campo deve ser preenchido' },

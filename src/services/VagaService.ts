@@ -1,4 +1,5 @@
 import Aluno from "models/geral/Aluno";
+import TipoExperiencia from "models/perfil/TipoExperiencia";
 import AlunoVaga from "models/vaga/AlunoVaga";
 import Vaga from "models/vaga/Vaga";
 import api from "utils/api";
@@ -11,6 +12,11 @@ export default class VagaService {
 		const response = await api.get<IPage<Vaga>>("vaga", {params: pageable});
 		return response.data;
 	}
+
+	async listarTodos(): Promise<Vaga[]> {
+		const response = await api.get<Vaga[]>("vaga/listar");
+		return response.data;
+	}
 	
 	async obterPorId(id: number): Promise<Vaga> {
 		const response = await api.get<Vaga>("vaga/" + id);
@@ -19,6 +25,11 @@ export default class VagaService {
 	
 	async filtrarPorData(dataInicial: Date, dataFinal: Date): Promise<Vaga[]> {
 		const response = await api.get<Vaga[]>(`vaga/data/${dataInicial}/${dataFinal}`);
+		return response.data;
+	}
+
+	async obterTiposExperiencia(): Promise<TipoExperiencia[]> {
+		const response = await api.get<TipoExperiencia[]>("vaga/tipo");
 		return response.data;
 	}
 	
@@ -48,7 +59,7 @@ export default class VagaService {
 	}
 	
 	async salvar(vaga: Vaga): Promise<Vaga> {
-		const response = await api.post<Vaga>("vaga" + vaga);
+		const response = await api.post<Vaga>("vaga", vaga);
 		return response.data;
 	}
 	

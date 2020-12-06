@@ -7,7 +7,7 @@ export default interface Perfil {
     resumo: string;
 	urlLattes: string;
 	urlImagem: string;
-    experiencias: [Experiencia];
-	formacoes: [Formacao];
-	idiomas: [Idioma];
+    experiencias: Experiencia[];
+	formacoes: Formacao[];
+	idiomas: Idioma[];
 }

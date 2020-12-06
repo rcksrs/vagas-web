@@ -12,3 +12,16 @@ html, body, #root {
 .ant-form {
     width: 100% !important;
 }
+
+.cardEffect {
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+
+.cardEffect:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 4px 4px 7px 0 rgba(0,0,0,0.04);
+    -webkit-box-shadow: 4px 4px 7px 0 rgba(0,0,0,0.04);
+    -moz-box-shadow: 4px 4px 7px 0 rgba(0,0,0,0.04);
+}

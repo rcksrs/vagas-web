@@ -7,7 +7,7 @@ export default interface VinculoEstagio {
 	dataFim: Date;
 	aluno: Aluno;
 	empresa: Empresa;
-	aditivos: [Aditivo];
+	aditivos: Aditivo[];
 }
 
 interface Aditivo {

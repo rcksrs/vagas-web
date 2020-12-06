@@ -101,7 +101,7 @@ export default function AlunoPage() {
                 title="Alunos"
                 extra={[
                     <Button key="1" type="primary" onClick={() => setModalVisible(true)}>Novo</Button>,
-                    <Search key="2" placeholder="Buscar aluno pelo nome" allowClear style={{ width: 300 }} onSearch={(nome) => buscarAlunos(nome)} />,
+                    <Search key="2" placeholder="Buscar alunos pelo nome" allowClear style={{ width: 300 }} onSearch={(nome) => buscarAlunos(nome)} />,
                 ]}>
             </PageHeader>
             <div style={{ backgroundColor: "white", padding: "0 24px" }}>
