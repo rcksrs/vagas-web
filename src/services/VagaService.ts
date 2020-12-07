@@ -55,6 +55,7 @@ export default class VagaService {
 	
 	async obterAlunosPorVaga(vagaId: number): Promise<AlunoVaga[]> {
 		const response = await api.get<AlunoVaga[]>("vaga/status/" + vagaId);
+		console.log(response);
 		return response.data;
 	}
 	
@@ -65,6 +66,11 @@ export default class VagaService {
 	
 	async candidatar(aluno: Aluno, vagaId: number): Promise<AlunoVaga> {
 		const response = await api.post<AlunoVaga>("vaga/candidatar/" + vagaId, aluno);
+		return response.data;
+	}
+
+	async classificar(alunoVaga: AlunoVaga): Promise<AlunoVaga> {
+		const response = await api.post<AlunoVaga>("vaga/classificar", alunoVaga);
 		return response.data;
 	}
 	

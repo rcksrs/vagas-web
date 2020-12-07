@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button, DatePicker, Descriptions, Form, Input, InputNumber, Modal, notification, PageHeader, Select, Space, Table, Tag } from 'antd';
-import { NotificationOutlined } from '@ant-design/icons';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Button, DatePicker, Descriptions, Form, Input, InputNumber, Modal, notification, PageHeader, Popconfirm, Select, Space, Table, Tag } from 'antd';
 import locale from 'antd/es/date-picker/locale/pt_BR';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import moment from 'antd/node_modules/moment';
@@ -12,9 +11,11 @@ import Vaga, { vagaValidation } from 'models/vaga/Vaga';
 import CursoService from 'services/CursoService';
 import EmpresaService from 'services/EmpresaService';
 import VagaService from 'services/VagaService';
+import AlunoVaga from 'models/vaga/AlunoVaga';
 
 export default function DetalheVagaPage() {
     const { state } = useLocation();
+    const history = useHistory();
 
     const vagaService = new VagaService();
     const cursoService = new CursoService();
@@ -28,24 +29,30 @@ export default function DetalheVagaPage() {
     const [cursosSelecionados, setCursosSelecionados] = useState<Curso[]>([]);
     const [empresas, setEmpresas] = useState<Empresa[]>([]);
     const [tiposExperiencia, setTiposExperiencia] = useState<TipoExperiencia[]>([]);
+    const [alunosVaga, setAlunosVaga] = useState<AlunoVaga[]>([]);
 
     const colunasTabela = [
-        { title: 'Aluno', dataIndex: 'nome' },
-        { title: 'Curso', dataIndex: ['tipo', 'descricao'] },
-        { title: 'Pontuação', dataIndex: 'semestres' },
+        { title: 'Aluno', dataIndex: ['id', 'aluno', 'nome'] },
+        { title: 'Matrícula', dataIndex: ['id', 'aluno', 'matricula'] },
+        { title: 'Curso', dataIndex: ['id', 'aluno', 'curso', 'nome'] },
         {
-            title: 'Situação', width: 160, render: (text: any, data: Curso) => {
-                if (data.semestres) return <Tag color="#87d068">CLASSIFICADO</Tag>
-                return <Tag color="#f30b4a">DESCLASSIFICADO</Tag>
+            title: 'Situação', width: 200, render: (text: any, data: AlunoVaga) => {
+                if (data.selecionado) return <Tag color="#87d068">CLASSIFICADO</Tag>
+                return <Tag color="blue">INSCRITO</Tag>
             }
         },
         {
-            title: 'Ações', width: 160, render: (text: any, data: Curso) => {
-                if(data.semestres) return <Button size="small" onClick={() => botaoEditar()}>Notificar</Button>
-                return <Space>
-                    <Button size="small" onClick={() => botaoEditar()}>Notificar</Button>
-                    <Button size="small" onClick={() => botaoEditar()}>Classificar</Button>
-                </Space>
+            title: 'Ações', width: 300, render: (text: any, data: AlunoVaga) => {
+                if (data.selecionado) return <Button size="middle" onClick={() => botaoEditar()}>Notificar</Button>
+                return (
+                    <Space>
+                        <Popconfirm title="Tem certeza que deseja classificar este aluno?" okText="Sim" cancelText="Não" onConfirm={() => botaoClassificar(data)}>
+                            <Button size="middle">Classificar</Button>  
+                        </Popconfirm>
+                        <Button size="middle" onClick={() => botaoEditar()}>Notificar</Button>
+                        <Button size="middle" onClick={() => botaoEditar()}>Visualizar</Button>
+                    </Space>
+                );
             }
         },
     ];
@@ -54,12 +61,14 @@ export default function DetalheVagaPage() {
 
     function carregarDadosSelect() {
         vagaService.obterTiposExperiencia().then(res => setTiposExperiencia(res));
+        vagaService.obterAlunosPorVaga(vaga.id).then(res => setAlunosVaga(res));
         cursoService.listarTodos().then(res => setCursos(res));
         empresaService.listarTodos().then(res => setEmpresas(res));
         vagaService.obterPorId(vaga.id).then(res => {
             setVaga(res);
             setCursosSelecionados(res.cursos);
         });
+        console.log(alunosVaga);
     }
 
     function handleChange(value: number[]) {
@@ -72,6 +81,25 @@ export default function DetalheVagaPage() {
         vaga.encerramento = moment(vaga.encerramento);
         form.setFieldsValue(vaga);
         setModalVisible(true);
+    }
+
+    async function botaoClassificar(alunoVaga: AlunoVaga) {
+        await vagaService.classificar(alunoVaga);
+        carregarDadosSelect();
+    }
+
+    async function botaoRemover() {
+        await vagaService.remover(vaga);
+        const args = { message: 'Sucesso', description: "Os dados da vaga selecionada foram removidos com sucesso", duration: 4 };
+        notification.success(args);
+        history.replace('/vaga');
+    }
+
+    async function botaoCandidatar() {
+        //obter id do usuário logado
+        //await vagaService.candidatar(aluno, vagaId)''
+        const args = { message: 'Sucesso', description: "Candidatura enviada com sucesso", duration: 4 };
+        notification.success(args);
     }
 
     async function botaoSalvarModal() {
@@ -120,7 +148,6 @@ export default function DetalheVagaPage() {
         );
     }
 
-
     return (
         <>
             <PageHeader
@@ -128,9 +155,11 @@ export default function DetalheVagaPage() {
                 ghost={false}
                 onBack={() => window.history.back()}
                 extra={[
-                    <Button key="1">Excluir Vaga</Button>,
-                    <Button key="2">Encerrar Seletivo</Button>,
-                    <Button key="3" type="primary" onClick={() => botaoEditar()}>Editar</Button>,
+                    <Popconfirm key="2" title="Tem certeza que deseja remover este item？" okText="Sim" cancelText="Não" onConfirm={() => botaoRemover()}>
+                        <Button>Excluir Vaga</Button>
+                    </Popconfirm>,
+                    <Button key="3">Encerrar Seletivo</Button>,
+                    <Button key="4" type="primary" onClick={() => botaoEditar()}>Editar</Button>,
                 ]}
             >
                 <div>
@@ -143,12 +172,17 @@ export default function DetalheVagaPage() {
                         <Descriptions.Item label="Cursos">{obterTagCursos()}</Descriptions.Item>
                     </Descriptions>
                     <Paragraph>{vaga.descricao}</Paragraph>
+                    <Paragraph>
+                        <Popconfirm title="Confirmar candidatura para a vaga?" okText="Sim" cancelText="Não" onConfirm={() => botaoCandidatar()}>
+                            <Button type="primary">Candidatar</Button>
+                        </Popconfirm>
+                    </Paragraph>
                 </div>
             </PageHeader>
 
             <div style={{ backgroundColor: "white", padding: "24px", marginTop: "30px" }}>
                 <Paragraph><h3>Inscrições realizadas para esta vaga</h3></Paragraph>
-                <Table dataSource={cursos} columns={colunasTabela} rowKey='id' />
+                <Table dataSource={alunosVaga} columns={colunasTabela} rowKey='criadoEm' />
             </div>
 
             <Modal title="Editar Vaga" okText="Salvar" cancelText="Cancelar" width={1000}

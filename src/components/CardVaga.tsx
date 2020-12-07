@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, List, Space, Tag, Tooltip } from "antd";
-import { FlagOutlined, FireOutlined, TeamOutlined } from '@ant-design/icons';
+import { FlagOutlined, FireOutlined } from '@ant-design/icons';
 import moment from 'antd/node_modules/moment';
 import Vaga from 'models/vaga/Vaga';
 import Curso from 'models/geral/Curso';
@@ -64,7 +64,7 @@ export default function CardVaga(props: any) {
                 actions={[
                     <IconText icon={FlagOutlined} text={vaga.tipo.descricao} key="1"/>,
                     <IconText icon={FireOutlined} text={vaga.vagas} key="2" tooltip="Vagas"/>,
-                    <IconText icon={TeamOutlined} text={vaga.vagas} key="3" tooltip="Inscrições"/>,
+                    // <IconText icon={TeamOutlined} text={vaga.vagas} key="3" tooltip="Inscrições"/>,
                 ]}
             >
                 <List.Item.Meta title={vaga.titulo} description={obterDescricao(vaga.cursos)} />
